@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8" />
+    <title>cars.az</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(130deg, #efefef, #ffffff);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 38px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        /* Üst panel – axtarış + filtrlər + sort */
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .top-bar input,
+        .top-bar select,
+        .top-bar button {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 1px solid #bbb;
+            outline: none;
+        }
+
+        .top-bar button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .top-bar button:hover {
+            background: #005fcc;
+        }
+
+        /* Maşın kartları */
+        .cars-container {
+            width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .car-card {
+            width: 220px;
+            background: white;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .car-card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Əlaqə */
+        .contact {
+            margin-top: 50px;
+            font-size: 18px;
+        }
+
+        .contact a {
+            color: green;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>cars.az</h1>
+
+    <!-- ÜST PANEL: Axtarış + Marka Filter + İl Filter + Qiymət Sort -->
+    <div class="top-bar">
+        <input id="search" type="text" placeholder="Maşın adı yaz..." />
+
+        <select id="brand" onchange="filterCars()">
+            <option value="">Marka (hamısı)</option>
+            <option value="bmw">BMW</option>
+            <option value="kia">Kia</option>
+            <option value="hyundai">Hyundai</option>
+            <option value="audi">Audi</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="honda">Honda</option>
+            <option value="toyota">Toyota</option>
+            <option value="opel">Opel</option>
+            <option value="mazda">Mazda</option>
+            <option value="volkswagen">Volkswagen</option>
+        </select>
+
+        <select id="year" onchange="filterCars()">
+            <option value="">İl (hamısı)</option>
+            <option value="2023">2023</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+        </select>
+
+        <button onclick="sortAsc()">Qiymət — Artan</button>
+    </div>
+
+    <!-- MAŞINLAR -->
+    <div class="cars-container" id="cars">
+
+        <div class="car-card" data-brand="hyundai" data-year="2014" data-price="25400">
+            <img src="OIP.webp" />
+            <h3>25 400 AZN</h3>
+            <p>Hyundai Santa Fe</p>
+            <p>2014 • 2.2L • 151 952 km</p>
+        </div>
+
+        <div class="car-card" data-brand="bmw" data-year="2015" data-price="32000">
+            <img src="OIP (7).webp" />
+            <h3>32 000 AZN</h3>
+            <p>BMW F10</p>
+            <p>2015 • 2L • 225 652 km</p>
+        </div>
+
+        <div class="car-card" data-brand="bmw" data-year="2017" data-price="48500">
+            <img src="bmw.jpg" />
+            <h3>48 500 AZN</h3>
+            <p>BMW 300</p>
+            <p>2017 • 2L • 175 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="mercedes" data-year="2012" data-price="37850">
+            <img src="1413107.jpg" />
+            <h3>37 850 AZN</h3>
+            <p>Mercedes W211</p>
+            <p>2012 • 2.8L • 42 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="hyundai" data-year="2017" data-price="29800">
+            <img src="OIP (2).webp" />
+            <h3>29 800 AZN</h3>
+            <p>Hyundai Tucson</p>
+            <p>2017 • 1.8L • 145 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="kia" data-year="2016" data-price="21500">
+            <img src="kiasportage.jpg" />
+            <h3>21 500 AZN</h3>
+            <p>Kia Sportage</p>
+            <p>2016 • 1.6L • 168 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="honda" data-year="2014" data-price="37900">
+            <img src="OIP (3).webp" />
+            <h3>37 900 AZN</h3>
+            <p>Honda Civic</p>
+            <p>2014 • 190 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="toyota" data-year="2018" data-price="38000">
+            <img src="camryyy.jpg" />
+            <h3>38 000 AZN</h3>
+            <p>Toyota Camry</p>
+            <p>2018 • 2.8L • 125 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="kia" data-year="2023" data-price="43000">
+            <img src="masin.jpg" />
+            <h3>43 000 AZN</h3>
+            <p>Kia K5</p>
+            <p>2023 • 2L • 68 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="kia" data-year="2019" data-price="23600">
+            <img src="2019_Kia_Optima__1_.jpg" />
+            <h3>23 600 AZN</h3>
+            <p>Kia Optima</p>
+            <p>2019 • 2.4L • 147 732 km</p>
+        </div>
+
+        <div class="car-card" data-brand="opel" data-year="2011" data-price="12700">
+            <img src="astra.jpg" />
+            <h3>12 700 AZN</h3>
+            <p>Opel Astra</p>
+            <p>2011 • 1.5L • 210 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="mazda" data-year="2017" data-price="30500">
+            <img src="OIP (4).webp" />
+            <h3>30 500 AZN</h3>
+            <p>Mazda 6</p>
+            <p>2017 • 2L • 140 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="volkswagen" data-year="2016" data-price="26200">
+            <img src="OIP (5).webp" />
+            <h3>26 200 AZN</h3>
+            <p>Volkswagen Passat</p>
+            <p>2016 • 158 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="bmw" data-year="2015" data-price="33900">
+            <img src="374499288688899.jpg" />
+            <h3>33 900 AZN</h3>
+            <p>BMW 320i</p>
+            <p>2015 • 2.4L • 175 000 km</p>
+        </div>
+
+        <div class="car-card" data-brand="audi" data-year="2017" data-price="48000">
+            <img src="OIP (6).webp" />
+            <h3>48 000 AZN</h3>
+            <p>Audi A4</p>
+            <p>2017 • 2L • 130 000 km</p>
+        </div>
+
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll(".car-card");
+
+        // Şəkli açılmayan üçün placeholder
+        document.querySelectorAll("img").forEach(img => {
+            img.onerror = () => {
+                img.src = "https://via.placeholder.com/200x150?text=Image+Yoxdur";
+            };
+        });
+
+        // Axtarış və Filtr
+        document.getElementById("search").addEventListener("keyup", filterCars);
+
+        function filterCars() {
+            const search = document.getElementById("search").value.toLowerCase();
+            const brand = document.getElementById("brand").value.toLowerCase();
+            const year = document.getElementById("year").value;
+
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                let match = true;
+
+                if (search && !text.includes(search)) match = false;
+                if (brand && !text.includes(brand)) match = false;
+                if (year && !text.includes(year)) match = false;
+
+                card.style.display = match ? "block" : "none";
+            });
+        }
+
+        // Qiymət artan sort
+        function sortAsc() {
+            const container = document.getElementById("cars");
+            const sorted = Array.from(cards).sort((a, b) => a.dataset.price - b.dataset.price);
+            sorted.forEach(c => container.appendChild(c));
+        }
+    </script>
+
+    <!-- Əlaqə -->
+    <div class="contact">
+        📞 0507651034 — <a href="https://wa.me/994507651034" target="_blank">WhatsApp</a><br /><br />
+        ✉ nadir.alilli@icloud.com
+    </div>
+</body>
+</html>
